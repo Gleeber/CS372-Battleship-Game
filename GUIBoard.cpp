@@ -7,6 +7,8 @@
 GUIBoard::GUIBoard()
 {
     window.create(sf::VideoMode(800, 600), "My window");
+    if(!backgroundTexture.loadFromFile("../textures/test_image.png")){}
+    backgroundSprite.setTexture(backgroundTexture);
 }
 
 bool GUIBoard::isOpen()
@@ -23,6 +25,8 @@ void GUIBoard::update()
         if (event.type == sf::Event::Closed)
             window.close();
     }
+
+    window.draw(backgroundSprite);
 
     window.display();
 }

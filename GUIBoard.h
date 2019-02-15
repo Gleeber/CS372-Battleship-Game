@@ -18,6 +18,8 @@ public:
     bool isOpen();
 private:
     sf::RenderWindow window;
+    sf::Texture backgroundTexture;
+    sf::Sprite  backgroundSprite;
 };
 
 
