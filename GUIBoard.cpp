@@ -7,7 +7,7 @@
 GUIBoard::GUIBoard()
 {
     window.create(sf::VideoMode(800, 600), "My window");
-    if(!backgroundTexture.loadFromFile("../textures/test_image.png")){}
+    if(!backgroundTexture.loadFromFile("../textures/board.png")){}
     backgroundSprite.setTexture(backgroundTexture);
 }
 
