@@ -3,7 +3,7 @@ project(CS372_Battleship_Game)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(CS372_Battleship_Game main.cpp battleship_test.cpp GUIBoard.cpp GUIBoard.h)
+add_executable(CS372_Battleship_Game main.cpp battleship_test.cpp GUIBoard.cpp GUIBoard.h Game.cpp Game.h game_pieces/Ship.cpp game_pieces/Ship.h)
 
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
 find_package(SFML REQUIRED system window graphics network audio)
