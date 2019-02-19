@@ -16,9 +16,14 @@ class Ship
 public:
     Ship(int, int);
 
+    void moveShip(float x, float y);
+
+    void moveShip(sf::Vector2i);
+
     void draw(sf::RenderWindow & window);
+
+    bool mouseOver(sf::RenderWindow &);
 private:
-    //map<std::string, int> _coordinates;
     sf::RectangleShape _shipSprite;
 };
 

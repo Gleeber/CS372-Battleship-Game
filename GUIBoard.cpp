@@ -20,14 +20,39 @@ bool GUIBoard::isOpen()
     return _window.isOpen();
 }
 
+bool isHeld = false;
+sf::Vector2i startPosition(0,0);
 void GUIBoard::update()
 {
-    sf::Event event;
+    sf::Event event; // NOLINT(cppcoreguidelines-pro-type-member-init)
     while (_window.pollEvent(event))
     {
         if (event.type == sf::Event::Closed)
         {
             _window.close();
+        }
+
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+        {
+            if(_ships[0].mouseOver(_window) && !isHeld)
+            {
+                isHeld = true;
+                startPosition = sf::Mouse::getPosition(_window);
+            }
+        }
+        else
+        {
+            isHeld = false;
+        }
+
+        if (event.type == sf::Event::MouseMoved)
+        {
+            if (isHeld)
+            {
+                sf::Vector2i currentPosition = sf::Mouse::getPosition(_window);
+                _ships[0].moveShip(currentPosition - startPosition);
+                startPosition = currentPosition;
+            }
         }
 
 //        if (event.type == sf::Event::MouseButtonReleased)
