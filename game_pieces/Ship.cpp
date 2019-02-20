@@ -5,7 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include "Ship.h"
 
-Ship::Ship(int xDim, int yDim)
+Ship::Ship(int xDim, int yDim) : _isHeld{false}
 {
     _shipSprite.setSize(sf::Vector2f((xDim*54), (yDim*54)));
     _shipSprite.setPosition(650.0f, 50.0f);
@@ -29,6 +29,16 @@ void Ship::moveShip(sf::Vector2i pos)
 bool Ship::mouseOver(sf::RenderWindow & window)
 {
     return _shipSprite.getGlobalBounds().contains((sf::Vector2f)sf::Mouse::getPosition(window));
+}
+
+bool Ship::isHeld()
+{
+    return _isHeld;
+}
+
+void Ship::setHeld(bool state)
+{
+    _isHeld = state;
 }
 
 

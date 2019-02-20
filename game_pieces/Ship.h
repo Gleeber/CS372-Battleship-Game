@@ -23,8 +23,13 @@ public:
     void draw(sf::RenderWindow & window);
 
     bool mouseOver(sf::RenderWindow &);
+
+    bool isHeld();
+
+    void setHeld(bool);
 private:
     sf::RectangleShape _shipSprite;
+    bool _isHeld;
 };
 
 
