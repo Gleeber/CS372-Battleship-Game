@@ -39,29 +39,32 @@ void GUIBoard::update()
         if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
         {
             for (auto &ship : _ships) {
-                if (ship.mouseOver(_window) && !isHeld)
+                if (ship.mouseOver(_window) && !ship.isHeld())
                 {
-                    isHeld = true;
+                    ship.setHeld(true);
                     startPosition = sf::Mouse::getPosition(_window);
                 }
             }
         }
         else
         {
-            isHeld = false;
+            for (auto & ship : _ships)
+            {
+                ship.setHeld(false);
+            }
         }
 
         if (event.type == sf::Event::MouseMoved)
         {
-            if (isHeld)
+            sf::Vector2i currentPosition = sf::Mouse::getPosition(_window);
+            for (auto & ship : _ships)
             {
-                sf::Vector2i currentPosition = sf::Mouse::getPosition(_window);
-                for (auto & ship : _ships)
+                if (ship.isHeld())
                 {
                     ship.moveShip(currentPosition - startPosition);
                 }
-                startPosition = currentPosition;
             }
+            startPosition = currentPosition;
         }
 
 //        if (event.type == sf::Event::MouseButtonReleased)
