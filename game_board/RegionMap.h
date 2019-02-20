@@ -1,0 +1,15 @@
+//
+// Created by Mark on 2/19/2019.
+//
+
+#ifndef CS372_BATTLESHIP_GAME_REGIONMAP_H
+#define CS372_BATTLESHIP_GAME_REGIONMAP_H
+
+
+class RegionMap
+{
+
+};
+
+
+#endif //CS372_BATTLESHIP_GAME_REGIONMAP_H

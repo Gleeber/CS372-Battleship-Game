@@ -3,7 +3,7 @@
 #include "catch.hpp"
 #include <iostream>
 #include <SFML/Window.hpp>
-#include "GUIBoard.h"
+#include "game_board/GUIBoard.h"
 
 int main()
 {

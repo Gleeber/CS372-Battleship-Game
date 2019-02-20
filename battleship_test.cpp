@@ -3,7 +3,7 @@
 //
 
 #include "catch.hpp"
-#include "GUIBoard.h"
+#include "game_board/GUIBoard.h"
 
 GUIBoard board;
 TEST_CASE("Game Initialization")

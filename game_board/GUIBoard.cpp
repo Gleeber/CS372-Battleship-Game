@@ -3,11 +3,11 @@
 //
 
 #include "GUIBoard.h"
-#include "game_pieces/Ship.h"
+#include "../game_pieces/Ship.h"
 #include <vector>
 using std::vector;
 
-GUIBoard::GUIBoard()
+GUIBoard::GUIBoard() : _pieceIsHeld{false}
 {
     _window.create(sf::VideoMode(800, 600), "My window");
     if(!_backgroundTexture.loadFromFile("../textures/board.png")){}
@@ -24,7 +24,6 @@ bool GUIBoard::isOpen()
     return _window.isOpen();
 }
 
-bool isHeld = false;
 sf::Vector2i startPosition(0,0);
 void GUIBoard::update()
 {
@@ -39,15 +38,18 @@ void GUIBoard::update()
         if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
         {
             for (auto &ship : _ships) {
-                if (ship.mouseOver(_window) && !ship.isHeld())
+                if (ship.mouseOver(_window) && !ship.isHeld() && !_pieceIsHeld)
                 {
+                    _pieceIsHeld = true;
                     ship.setHeld(true);
                     startPosition = sf::Mouse::getPosition(_window);
+                    break;
                 }
             }
         }
         else
         {
+            _pieceIsHeld = false;
             for (auto & ship : _ships)
             {
                 ship.setHeld(false);
@@ -62,6 +64,7 @@ void GUIBoard::update()
                 if (ship.isHeld())
                 {
                     ship.moveShip(currentPosition - startPosition);
+                    break;
                 }
             }
             startPosition = currentPosition;
