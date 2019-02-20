@@ -13,6 +13,10 @@ GUIBoard::GUIBoard()
     if(!_backgroundTexture.loadFromFile("../textures/board.png")){}
     _backgroundSprite.setTexture(_backgroundTexture);
     _ships.emplace_back(Ship(1,2));
+    _ships.emplace_back(Ship(1,3));
+    _ships.emplace_back(Ship(1,3));
+    _ships.emplace_back(Ship(1,4));
+    _ships.emplace_back(Ship(1,5));
 }
 
 bool GUIBoard::isOpen()
@@ -34,10 +38,12 @@ void GUIBoard::update()
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
         {
-            if(_ships[0].mouseOver(_window) && !isHeld)
-            {
-                isHeld = true;
-                startPosition = sf::Mouse::getPosition(_window);
+            for (auto &ship : _ships) {
+                if (ship.mouseOver(_window) && !isHeld)
+                {
+                    isHeld = true;
+                    startPosition = sf::Mouse::getPosition(_window);
+                }
             }
         }
         else
@@ -50,7 +56,10 @@ void GUIBoard::update()
             if (isHeld)
             {
                 sf::Vector2i currentPosition = sf::Mouse::getPosition(_window);
-                _ships[0].moveShip(currentPosition - startPosition);
+                for (auto & ship : _ships)
+                {
+                    ship.moveShip(currentPosition - startPosition);
+                }
                 startPosition = currentPosition;
             }
         }
