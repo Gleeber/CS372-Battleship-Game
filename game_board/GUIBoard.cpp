@@ -70,8 +70,12 @@ void GUIBoard::update()
             startPosition = currentPosition;
         }
 
-//        if (event.type == sf::Event::MouseButtonReleased)
-//        {
+        if (event.type == sf::Event::MouseButtonReleased)
+        {
+            for(auto &ship : _ships)
+            {
+               ship.snapToGrid();
+            }
 //            if (miss())
 //            {
 //                placeMarker("miss");
@@ -80,7 +84,7 @@ void GUIBoard::update()
 //            {
 //                placeMarker("hit");
 //            }
-//        }
+        }
     }
 
     _window.clear(sf::Color::Black);
