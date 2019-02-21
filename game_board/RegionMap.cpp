@@ -25,9 +25,9 @@ RegionMap::RegionMap()
     _startPositions = {sf::Vector2f(630.f, 30.f), sf::Vector2f(714.f, 30.f), sf::Vector2f(630.f,168.f), sf::Vector2f(630.f,360.f), sf::Vector2f(714.f,306.f)};
 }
 
-bool RegionMap::onBoard(sf::Vector2f shipPosition)
+bool RegionMap::onBoard(sf::Vector2f shipPosition, float shipLength)
 {
-    return shipPosition.x < 600;
+    return shipPosition.x < 600 && (shipPosition.y + shipLength) < 566;
 }
 
 float RegionMap::_distance(sf::Vector2f shipSquare, sf::Vector2f gridSquare)

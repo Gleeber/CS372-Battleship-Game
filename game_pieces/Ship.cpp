@@ -46,7 +46,7 @@ void Ship::snapToGrid()
 {
     sf::Vector2f shipPosition =  _shipSprite.getPosition();
 
-    if(_regionMap.onBoard(shipPosition))
+    if(_regionMap.onBoard(shipPosition, _shipSprite.getSize().y))
     {
         _setShipPosition(_regionMap.closestSquare(shipPosition));
     }

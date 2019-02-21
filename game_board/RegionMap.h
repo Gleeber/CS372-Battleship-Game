@@ -12,7 +12,7 @@ class RegionMap
 public:
     RegionMap();
     sf::Vector2f closestSquare(sf::Vector2f);
-    bool onBoard(sf::Vector2f);
+    bool onBoard(sf::Vector2f, float);
     sf::Vector2f assignStartPosition(int);
 private:
     void _populateGridWithCoordinates();
