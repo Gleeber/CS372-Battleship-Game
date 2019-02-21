@@ -7,6 +7,22 @@
 #include <cmath>
 #include <algorithm>
 
+void RegionMap::_populateGrid()
+{
+    for (auto row = 0; row < 10; ++row)
+    {
+        for (auto column = 0; column < 10; ++column)
+        {
+            _boardGrid.emplace_back(62.f + column*54.f, row*54.f);
+        }
+    }
+}
+
+RegionMap::RegionMap()
+{
+    _populateGrid();
+}
+
 bool RegionMap::onBoard(sf::Vector2f shipPosition)
 {
     return shipPosition.x < 600;
@@ -32,4 +48,8 @@ sf::Vector2i RegionMap::closestSquare(sf::Vector2f shipPosition)
 
     return sf::Vector2i((int)squareCoords.x, (int)squareCoords.y);
 }
+
+
+
+
 
