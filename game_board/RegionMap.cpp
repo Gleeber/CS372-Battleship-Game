@@ -3,7 +3,7 @@
 //
 
 #include "RegionMap.h"
-#include <vector>
+#include <map>
 #include <cmath>
 #include <algorithm>
 
@@ -21,14 +21,15 @@ float RegionMap::_distance(sf::Vector2f shipSquare, sf::Vector2f gridSquare)
 
 sf::Vector2i RegionMap::closestSquare(sf::Vector2f shipPosition)
 {
-    std::vector<float> distances;
+    std::map<float, sf::Vector2f> distances;
     for (auto gridSquare : _boardGrid)
     {
-        distances.push_back(_distance(shipPosition, gridSquare));
+        distances[_distance(shipPosition, gridSquare)] = gridSquare;
     }
 
+    const auto [smallestDistance, squareCoords] = *std::min_element(begin(distances), end(distances),
+                                                [] (auto a, auto b){return a.first < b.first;});
 
-
-    return sf::Vector2i(0,0);
+    return sf::Vector2i((int)squareCoords.x, (int)squareCoords.y);
 }
 
