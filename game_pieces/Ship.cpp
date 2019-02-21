@@ -5,10 +5,16 @@
 #include <SFML/Graphics.hpp>
 #include "Ship.h"
 
-Ship::Ship(int xDim, int yDim) : _isHeld{false}, _regionMap{}
+void Ship::_setShipPosition(sf::Vector2f pos)
+{
+    _shipSprite.setPosition(pos);
+}
+
+Ship::Ship(int xDim, int yDim, int assignedStartPosition) : _isHeld{false}, _regionMap{},
+            _startPosition{_regionMap.assignStartPosition(assignedStartPosition)}
 {
     _shipSprite.setSize(sf::Vector2f((xDim*54), (yDim*54)));
-    _shipSprite.setPosition(650.0f, 50.0f);
+    _setShipPosition(_startPosition);
 }
 
 void Ship::draw(sf::RenderWindow &window)
@@ -19,11 +25,6 @@ void Ship::draw(sf::RenderWindow &window)
 void Ship::moveShip(sf::Vector2i pos)
 {
     _shipSprite.move((float)pos.x, (float)pos.y);
-}
-
-void Ship::_setShipPosition(sf::Vector2i pos)
-{
-    _shipSprite.setPosition((float)pos.x, (float)pos.y);
 }
 
 bool Ship::mouseOver(sf::RenderWindow & window)
@@ -48,6 +49,10 @@ void Ship::snapToGrid()
     if(_regionMap.onBoard(shipPosition))
     {
         _setShipPosition(_regionMap.closestSquare(shipPosition));
+    }
+    else
+    {
+        _setShipPosition(_startPosition);
     }
 }
 

@@ -12,11 +12,11 @@ GUIBoard::GUIBoard() : _pieceIsHeld{false}
     _window.create(sf::VideoMode(800, 600), "My window");
     if(!_backgroundTexture.loadFromFile("../textures/board.png")){}
     _backgroundSprite.setTexture(_backgroundTexture);
-    _ships.emplace_back(Ship(1,2));
-    _ships.emplace_back(Ship(1,3));
-    _ships.emplace_back(Ship(1,3));
-    _ships.emplace_back(Ship(1,4));
-    _ships.emplace_back(Ship(1,5));
+    _ships.emplace_back(Ship(1, 2, 0));
+    _ships.emplace_back(Ship(1, 3, 1));
+    _ships.emplace_back(Ship(1, 3, 2));
+    _ships.emplace_back(Ship(1, 4, 3));
+    _ships.emplace_back(Ship(1, 5, 4));
 }
 
 bool GUIBoard::isOpen()

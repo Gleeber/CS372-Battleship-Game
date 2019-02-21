@@ -13,7 +13,7 @@
 class Ship
 {
 public:
-    Ship(int, int);
+    Ship(int, int, int);
 
     void moveShip(sf::Vector2i);
 
@@ -27,10 +27,11 @@ public:
 
     void setHeld(bool);
 private:
-    void _setShipPosition(sf::Vector2i);
+    void _setShipPosition(sf::Vector2f);
     sf::RectangleShape _shipSprite;
     bool _isHeld;
     RegionMap _regionMap;
+    sf::Vector2f _startPosition;
 };
 
 

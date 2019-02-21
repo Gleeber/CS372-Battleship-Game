@@ -7,20 +7,22 @@
 #include <cmath>
 #include <algorithm>
 
-void RegionMap::_populateGrid()
+void RegionMap::_populateGridWithCoordinates()
 {
     for (auto row = 0; row < 10; ++row)
     {
         for (auto column = 0; column < 10; ++column)
         {
-            _boardGrid.emplace_back(62.f + column*54.f, row*54.f);
+            _grid.emplace_back(62.f + column*54.f, row*54.f);
         }
     }
 }
 
 RegionMap::RegionMap()
 {
-    _populateGrid();
+    _populateGridWithCoordinates();
+
+    _startPositions = {sf::Vector2f(630.f, 30.f), sf::Vector2f(714.f, 30.f), sf::Vector2f(630.f,168.f), sf::Vector2f(630.f,360.f), sf::Vector2f(714.f,306.f)};
 }
 
 bool RegionMap::onBoard(sf::Vector2f shipPosition)
@@ -35,18 +37,22 @@ float RegionMap::_distance(sf::Vector2f shipSquare, sf::Vector2f gridSquare)
     return std::sqrt(diffX*diffX + diffY*diffY);
 }
 
-sf::Vector2i RegionMap::closestSquare(sf::Vector2f shipPosition)
+sf::Vector2f RegionMap::closestSquare(sf::Vector2f shipPosition)
 {
-    std::map<float, sf::Vector2f> distances;
-    for (auto gridSquare : _boardGrid)
+    std::map<float, sf::Vector2f> distanceToGridSquares;
+    for (auto gridSquare : _grid)
     {
-        distances[_distance(shipPosition, gridSquare)] = gridSquare;
+        distanceToGridSquares[_distance(shipPosition, gridSquare)] = gridSquare;
     }
 
-    const auto [smallestDistance, squareCoords] = *std::min_element(begin(distances), end(distances),
-                                                [] (auto a, auto b){return a.first < b.first;});
+    const auto [smallestDistance, squareCoords] = *std::min_element(begin(distanceToGridSquares), end(distanceToGridSquares), [] (auto a, auto b){return a.first < b.first;});
 
-    return sf::Vector2i((int)squareCoords.x, (int)squareCoords.y);
+    return sf::Vector2f(squareCoords);
+}
+
+sf::Vector2f RegionMap::assignStartPosition(int assignedStartPosition)
+{
+    return _startPositions[assignedStartPosition];
 }
 
 

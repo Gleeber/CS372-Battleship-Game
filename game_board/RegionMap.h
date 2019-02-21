@@ -11,12 +11,14 @@ class RegionMap
 {
 public:
     RegionMap();
-    sf::Vector2i closestSquare(sf::Vector2f);
+    sf::Vector2f closestSquare(sf::Vector2f);
     bool onBoard(sf::Vector2f);
+    sf::Vector2f assignStartPosition(int);
 private:
-    void _populateGrid();
+    void _populateGridWithCoordinates();
     float _distance(sf::Vector2f, sf::Vector2f);
-    std::vector<sf::Vector2f> _boardGrid;
+    std::vector<sf::Vector2f> _grid;
+    std::vector<sf::Vector2f> _startPositions;
 };
 
 
