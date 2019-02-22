@@ -94,10 +94,10 @@ void GUIBoard::update()
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
         {
             _shipsPlaced = true;
-//            for (auto ship : _ships)
-//            {
-//                if (!ship.onBoard()) _shipsPlaced = false;
-//            }
+            for (auto ship : _ships)
+            {
+                if (!ship.onBoard()) _shipsPlaced = false;
+            }
         }
     }
 
