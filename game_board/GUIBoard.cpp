@@ -137,6 +137,11 @@ sf::Vector2i GUIBoard::makeMove()
 
 bool GUIBoard::isHit(sf::Vector2i coords)
 {
+    for (auto ship : _ships)
+    {
+        if (sf::Vector2f(coords) == ship.getPosition())
+            return true;
+    }
     return false;
 }
 

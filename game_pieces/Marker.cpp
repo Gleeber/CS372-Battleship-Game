@@ -9,7 +9,8 @@ Marker::Marker(sf::Vector2i coords, bool hit)
 {
     _markerSprite.setRadius(26);
     _markerSprite.setPosition(sf::Vector2f(coords));
-    _markerSprite.setFillColor(sf::Color::Red);
+    if (hit) _markerSprite.setFillColor(sf::Color::Red);
+    else     _markerSprite.setFillColor(sf::Color::White);
 }
 
 void Marker::draw(sf::RenderWindow & window)

@@ -21,6 +21,8 @@ public:
 
     void draw(sf::RenderWindow & window);
 
+    sf::Vector2f getPosition();
+
     bool mouseOver(sf::RenderWindow &);
 
     bool isHeld();

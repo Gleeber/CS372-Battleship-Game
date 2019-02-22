@@ -22,6 +22,11 @@ void Ship::draw(sf::RenderWindow &window)
     window.draw(_shipSprite);
 }
 
+sf::Vector2f Ship::getPosition()
+{
+    return _shipSprite.getPosition();
+}
+
 void Ship::moveShip(sf::Vector2i pos)
 {
     _shipSprite.move((float)pos.x, (float)pos.y);
