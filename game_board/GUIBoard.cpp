@@ -4,6 +4,7 @@
 
 #include "GUIBoard.h"
 #include "../game_pieces/Ship.h"
+#include "RegionMap.h"
 #include <vector>
 
 using std::vector;
@@ -93,10 +94,10 @@ void GUIBoard::update()
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
         {
             _shipsPlaced = true;
-            for (auto ship : _ships)
-            {
-                if (!ship.onBoard()) _shipsPlaced = false;
-            }
+//            for (auto ship : _ships)
+//            {
+//                if (!ship.onBoard()) _shipsPlaced = false;
+//            }
         }
     }
 
@@ -106,9 +107,46 @@ void GUIBoard::update()
     {
         ship.draw(_window);
     }
+    for (auto marker : _markers)
+    {
+        marker.draw(_window);
+    }
     _window.display();
 }
 
-bool GUIBoard::shipsPlaced() {
+sf::Vector2i GUIBoard::makeMove()
+{
+    sf::Event event; // NOLINT(cppcoreguidelines-pro-type-member-init)
+    while (_window.pollEvent(event))
+    {
+        if (event.type == sf::Event::MouseButtonReleased)
+        {
+            RegionMap regionMap;
+            sf::Vector2i mousePos = sf::Mouse::getPosition(_window);
+            sf::Vector2f gridPos = regionMap.currentSquare(sf::Vector2f(mousePos));
+            return sf::Vector2i(gridPos);
+        }
+    }
+    return sf::Vector2i();
+}
+
+bool GUIBoard::isHit(sf::Vector2i coords)
+{
+    return false;
+}
+
+bool GUIBoard::moveMade(sf::Vector2i coords, bool hit)
+{
+    sf::Vector2i empty;
+    if (coords == empty) return false;
+    else
+    {
+        _markers.emplace_back(Marker(coords,hit));
+        return true;
+    }
+}
+
+bool GUIBoard::shipsPlaced()
+{
     return _shipsPlaced;
 }

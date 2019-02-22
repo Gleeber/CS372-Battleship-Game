@@ -5,13 +5,18 @@
 #ifndef CS372_BATTLESHIP_GAME_MARKER_H
 #define CS372_BATTLESHIP_GAME_MARKER_H
 
+#include <SFML/System.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 
 class Marker
 {
 public:
-    Marker(bool);
+    Marker(sf::Vector2i,bool);
+
+    void draw(sf::RenderWindow &);
 
 private:
+    sf::CircleShape _markerSprite;
 };
 
 

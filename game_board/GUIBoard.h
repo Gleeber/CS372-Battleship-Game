@@ -7,6 +7,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include "../game_pieces/Ship.h"
+#include "../game_pieces/Marker.h"
 
 class GUIBoard
 {
@@ -14,6 +15,12 @@ public:
     GUIBoard();
 
     void update();
+
+    sf::Vector2i makeMove();
+
+    bool isHit(sf::Vector2i);
+
+    bool moveMade(sf::Vector2i,bool);
 
     bool isOpen();
 
@@ -23,6 +30,7 @@ private:
     sf::Texture _backgroundTexture;
     sf::Sprite  _backgroundSprite;
     std::vector<Ship> _ships;
+    std::vector<Marker> _markers;
     bool _shipsPlaced;
     bool _pieceIsHeld;
 };

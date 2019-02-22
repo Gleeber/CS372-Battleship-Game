@@ -18,13 +18,15 @@ int main()
 
         if (turn == 1)
         {
-            // turn 1 stuff
-            turn = 2;
+            sf::Vector2i coords = board1.makeMove();
+            bool hit = board2.isHit(coords);
+            if(board1.moveMade(coords,hit)) turn = 2;
         }
         else if (turn == 2)
         {
-            // turn 2 stuff
-            turn = 1;
+            sf::Vector2i coords = board2.makeMove();
+            bool hit = board1.isHit(coords);
+            if(board2.moveMade(coords,hit)) turn = 1;
         }
     }
 

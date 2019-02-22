@@ -50,6 +50,13 @@ sf::Vector2f RegionMap::closestSquare(sf::Vector2f shipPosition)
     return sf::Vector2f(squareCoords);
 }
 
+sf::Vector2f RegionMap::currentSquare(sf::Vector2f position)
+{
+    float xPos = position.x - fmod((position.x-62.f),54.f);
+    float yPos = position.y - fmod(position.y,54.f);
+    return sf::Vector2f(xPos,yPos);
+}
+
 sf::Vector2f RegionMap::assignStartPosition(int assignedStartPosition)
 {
     return _startPositions[assignedStartPosition];
