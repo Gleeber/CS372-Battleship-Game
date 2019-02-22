@@ -16,11 +16,14 @@ public:
     void update();
 
     bool isOpen();
+
+    bool shipsPlaced();
 private:
     sf::RenderWindow _window;
     sf::Texture _backgroundTexture;
     sf::Sprite  _backgroundSprite;
     std::vector<Ship> _ships;
+    bool _shipsPlaced;
     bool _pieceIsHeld;
 };
 

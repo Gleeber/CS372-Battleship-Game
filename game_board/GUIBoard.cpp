@@ -5,9 +5,10 @@
 #include "GUIBoard.h"
 #include "../game_pieces/Ship.h"
 #include <vector>
+
 using std::vector;
 
-GUIBoard::GUIBoard() : _pieceIsHeld{false}
+GUIBoard::GUIBoard() : _pieceIsHeld{false}, _shipsPlaced{false}
 {
     _window.create(sf::VideoMode(800, 600), "My window");
     if(!_backgroundTexture.loadFromFile("../textures/board.png")){}
@@ -37,13 +38,16 @@ void GUIBoard::update()
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
         {
-            for (auto &ship : _ships) {
-                if (ship.mouseOver(_window) && !ship.isHeld() && !_pieceIsHeld)
-                {
-                    _pieceIsHeld = true;
-                    ship.setHeld(true);
-                    startPosition = sf::Mouse::getPosition(_window);
-                    break;
+            if (!_shipsPlaced)
+            {
+                for (auto &ship : _ships) {
+                    if (ship.mouseOver(_window) && !ship.isHeld() && !_pieceIsHeld)
+                    {
+                        _pieceIsHeld = true;
+                        ship.setHeld(true);
+                        startPosition = sf::Mouse::getPosition(_window);
+                        break;
+                    }
                 }
             }
         }
@@ -85,6 +89,15 @@ void GUIBoard::update()
 //                placeMarker("hit");
 //            }
         }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
+        {
+            _shipsPlaced = true;
+            for (auto ship : _ships)
+            {
+                if (!ship.onBoard()) _shipsPlaced = false;
+            }
+        }
     }
 
     _window.clear(sf::Color::Black);
@@ -94,4 +107,8 @@ void GUIBoard::update()
         ship.draw(_window);
     }
     _window.display();
+}
+
+bool GUIBoard::shipsPlaced() {
+    return _shipsPlaced;
 }

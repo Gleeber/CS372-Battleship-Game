@@ -26,6 +26,8 @@ public:
     bool isHeld();
 
     void setHeld(bool);
+
+    bool onBoard();
 private:
     void _setShipPosition(sf::Vector2f);
     sf::RectangleShape _shipSprite;

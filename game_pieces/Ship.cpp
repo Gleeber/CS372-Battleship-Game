@@ -42,11 +42,17 @@ void Ship::setHeld(bool state)
     _isHeld = state;
 }
 
+bool Ship::onBoard()
+{
+    sf::Vector2f shipPosition =  _shipSprite.getPosition();
+    return _regionMap.onBoard(shipPosition, _shipSprite.getSize().y);
+}
+
 void Ship::snapToGrid()
 {
     sf::Vector2f shipPosition =  _shipSprite.getPosition();
 
-    if(_regionMap.onBoard(shipPosition, _shipSprite.getSize().y))
+    if(onBoard())
     {
         _setShipPosition(_regionMap.closestSquare(shipPosition));
     }
