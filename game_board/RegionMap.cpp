@@ -31,7 +31,7 @@ bool RegionMap::onBoard(sf::Vector2f shipPosition, float shipLength) const
     return shipPosition.x < _gridRightBound && (shipPosition.y + shipLength) < 566;
 }
 
-bool RegionMap::onEnemyBoard(sf::Vector2f position)
+bool RegionMap::onEnemyBoard(sf::Vector2f position) const
 {
     return position.x > _enemyBoardLeftBound+_sideBarWidth && position.y < _windowHeight-_sideBarWidth;
 }
@@ -64,7 +64,7 @@ sf::Vector2f RegionMap::currentSquare(sf::Vector2f position)
     return sf::Vector2f(xPos,yPos);
 }
 
-sf::Vector2f RegionMap::assignStartPosition(int assignedStartPosition)
+sf::Vector2f RegionMap::assignStartPosition(int assignedStartPosition) const
 {
     return _shipStartPositions[assignedStartPosition];
 }

@@ -33,7 +33,7 @@ void Ship::moveShip(sf::Vector2i pos)
     _shipSprite.move((float)pos.x, (float)pos.y);
 }
 
-bool Ship::mouseOver(sf::RenderWindow & window)
+bool Ship::mouseOver(sf::RenderWindow & window) const
 {
     return _shipSprite.getGlobalBounds().contains((sf::Vector2f)sf::Mouse::getPosition(window));
 }
@@ -43,7 +43,7 @@ bool Ship::contains(sf::Vector2f position) const
     return _shipSprite.getGlobalBounds().contains(position);
 }
 
-bool Ship::isHeld()
+bool Ship::isHeld() const
 {
     return _isHeld;
 }

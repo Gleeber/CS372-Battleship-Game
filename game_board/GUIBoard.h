@@ -22,9 +22,9 @@ public:
 
     bool moveMade(sf::Vector2i,int);
 
-    bool isOpen();
+    bool isOpen() const;
 
-    bool shipsPlaced();
+    bool shipsPlaced() const;
 private:
     sf::RenderWindow _window;
     sf::Texture _backgroundTexture;

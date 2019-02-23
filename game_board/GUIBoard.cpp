@@ -28,7 +28,7 @@ GUIBoard::GUIBoard() : _pieceIsHeld{false}, _shipsPlaced{false}
     _ships.emplace_back(Ship(1, 5, 4));
 }
 
-bool GUIBoard::isOpen()
+bool GUIBoard::isOpen() const
 {
     return _window.isOpen();
 }
@@ -196,7 +196,7 @@ bool GUIBoard::moveMade(sf::Vector2i coords, int hit)
     }
 }
 
-bool GUIBoard::shipsPlaced()
+bool GUIBoard::shipsPlaced() const
 {
     return _shipsPlaced;
 }

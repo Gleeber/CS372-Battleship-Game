@@ -14,8 +14,8 @@ public:
     sf::Vector2f closestSquare(sf::Vector2f) const;
     sf::Vector2f currentSquare(sf::Vector2f);
     bool onBoard(sf::Vector2f, float) const;
-    bool onEnemyBoard(sf::Vector2f);
-    sf::Vector2f assignStartPosition(int);
+    bool onEnemyBoard(sf::Vector2f) const;
+    sf::Vector2f assignStartPosition(int) const;
 private:
     void _populateGridWithCoordinates();
     float _distance(sf::Vector2f, sf::Vector2f) const;

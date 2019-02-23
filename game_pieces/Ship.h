@@ -23,11 +23,11 @@ public:
 
     bool isSunk();
 
-    bool mouseOver(sf::RenderWindow &);
+    bool mouseOver(sf::RenderWindow &) const;
 
     bool contains(sf::Vector2f) const;
 
-    bool isHeld();
+    bool isHeld() const;
 
     void setHeld(bool);
 
