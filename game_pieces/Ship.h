@@ -25,13 +25,13 @@ public:
 
     bool mouseOver(sf::RenderWindow &);
 
-    bool contains(sf::Vector2f);
+    bool contains(sf::Vector2f) const;
 
     bool isHeld();
 
     void setHeld(bool);
 
-    bool onBoard();
+    bool onBoard() const;
 private:
     void _setShipPosition(sf::Vector2f);
     sf::RectangleShape _shipSprite;

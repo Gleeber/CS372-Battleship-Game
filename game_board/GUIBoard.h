@@ -40,6 +40,8 @@ private:
     void _releaseShips();
     void _pickUpShip(sf::Vector2i &);
     void _moveHeldShip(sf::Vector2i &);
+
+    void _dropHeldShip();
 };
 
 

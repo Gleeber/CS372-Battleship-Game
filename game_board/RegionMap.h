@@ -11,14 +11,14 @@ class RegionMap
 {
 public:
     RegionMap();
-    sf::Vector2f closestSquare(sf::Vector2f);
+    sf::Vector2f closestSquare(sf::Vector2f) const;
     sf::Vector2f currentSquare(sf::Vector2f);
-    bool onBoard(sf::Vector2f, float);
+    bool onBoard(sf::Vector2f, float) const;
     bool onEnemyBoard(sf::Vector2f);
     sf::Vector2f assignStartPosition(int);
 private:
     void _populateGridWithCoordinates();
-    float _distance(sf::Vector2f, sf::Vector2f);
+    float _distance(sf::Vector2f, sf::Vector2f) const;
     std::vector<sf::Vector2f> _grid;
     std::vector<sf::Vector2f> _shipStartPositions;
 };

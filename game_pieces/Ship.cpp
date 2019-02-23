@@ -38,7 +38,7 @@ bool Ship::mouseOver(sf::RenderWindow & window)
     return _shipSprite.getGlobalBounds().contains((sf::Vector2f)sf::Mouse::getPosition(window));
 }
 
-bool Ship::contains(sf::Vector2f position)
+bool Ship::contains(sf::Vector2f position) const
 {
     return _shipSprite.getGlobalBounds().contains(position);
 }
@@ -53,7 +53,7 @@ void Ship::setHeld(bool state)
     _isHeld = state;
 }
 
-bool Ship::onBoard()
+bool Ship::onBoard() const
 {
     sf::Vector2f shipPosition =  _shipSprite.getPosition();
     return _regionMap.onBoard(shipPosition, _shipSprite.getSize().y);

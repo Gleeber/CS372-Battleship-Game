@@ -65,24 +65,13 @@ void GUIBoard::update()
 
         if (event.type == sf::Event::MouseButtonReleased)
         {
-            for(auto &ship : _ships)
-            {
-               ship.snapToGrid();
-            }
-//            if (miss())
-//            {
-//                placeMarker("miss");
-//            }
-//            else
-//            {
-//                placeMarker("hit");
-//            }
+            _dropHeldShip();
         }
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
         {
             //_shipsPlaced = true;
-            for (auto ship : _ships)
+            for (const auto & ship : _ships)
             {
                 if (!ship.onBoard()) _shipsPlaced = false;
             }
@@ -102,6 +91,14 @@ void GUIBoard::update()
         marker.draw(_window);
     }
     _window.display();
+}
+
+void GUIBoard::_dropHeldShip()
+{
+    for(auto &ship : _ships)
+    {
+       ship.snapToGrid();
+    }
 }
 
 void GUIBoard::_moveHeldShip(sf::Vector2i & startPosition)
@@ -169,13 +166,13 @@ int GUIBoard::isHit(sf::Vector2i coords)
 {
     int result = 0;
     coords.x -= 800;
-    for (auto iter = std::begin(_ships); iter != std::end(_ships); iter++)
+    for (auto ship = std::begin(_ships); ship != std::end(_ships); ship++)
     {
-        if ((*iter).contains(sf::Vector2f(coords)))
+        if ((*ship).contains(sf::Vector2f(coords)))
         {
-            if ((*iter).isSunk())
+            if ((*ship).isSunk())
             {
-                _ships.erase(iter);
+                _ships.erase(ship);
                 result++;
             }
             result++;
