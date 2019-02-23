@@ -147,6 +147,11 @@ sf::Vector2i GUIBoard::makeMove()
     sf::Event event; // NOLINT(cppcoreguidelines-pro-type-member-init)
     while (_window.pollEvent(event))
     {
+        if (event.type == sf::Event::Closed)
+        {
+            _window.close();
+        }
+
         if (event.type == sf::Event::MouseButtonReleased)
         {
             RegionMap regionMap;

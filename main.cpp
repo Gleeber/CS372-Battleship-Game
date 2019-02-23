@@ -23,7 +23,7 @@ int main()
         {
             board2.update();
             sf::Vector2i coords = board1.makeMove();
-            bool hit = board2.isHit(coords);
+            int hit = board2.isHit(coords);
             if(board1.moveMade(coords,hit))
             {
                 board1.update();
@@ -35,7 +35,7 @@ int main()
         {
             board1.update();
             sf::Vector2i coords = board2.makeMove();
-            bool hit = board1.isHit(coords);
+            int hit = board1.isHit(coords);
             if(board2.moveMade(coords,hit))
             {
                 board1.update();
