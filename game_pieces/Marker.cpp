@@ -5,12 +5,13 @@
 #include <SFML/Graphics/CircleShape.hpp>
 #include "Marker.h"
 
-Marker::Marker(sf::Vector2i coords, bool hit)
+Marker::Marker(sf::Vector2i coords, int hit)
 {
     _markerSprite.setRadius(26);
     _markerSprite.setPosition(sf::Vector2f(coords));
-    if (hit) _markerSprite.setFillColor(sf::Color::Red);
-    else     _markerSprite.setFillColor(sf::Color::White);
+    if (hit == 1) _markerSprite.setFillColor(sf::Color::Red);
+    else if (hit == 2) _markerSprite.setFillColor(sf::Color::Green);
+    else _markerSprite.setFillColor(sf::Color::White);
 }
 
 void Marker::draw(sf::RenderWindow & window)

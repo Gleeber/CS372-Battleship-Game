@@ -11,9 +11,16 @@ using std::vector;
 
 GUIBoard::GUIBoard() : _pieceIsHeld{false}, _shipsPlaced{false}
 {
-    _window.create(sf::VideoMode(800, 600), "My window");
+    _window.create(sf::VideoMode(600+600+200, 600), "My window");
     if(!_backgroundTexture.loadFromFile("../textures/board.png")){}
-    _backgroundSprite.setTexture(_backgroundTexture);
+
+    _playerBoard.setTexture(_backgroundTexture);
+    _playerBoard.setPosition(0.f,0.f);
+
+    _enemyBoard.setTexture(_backgroundTexture);
+    _enemyBoard.setTextureRect(sf::IntRect(0,0,600,600));
+    _enemyBoard.setPosition(800.f,0.f);
+
     _ships.emplace_back(Ship(1, 2, 0));
     _ships.emplace_back(Ship(1, 3, 1));
     _ships.emplace_back(Ship(1, 3, 2));
@@ -93,16 +100,18 @@ void GUIBoard::update()
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
         {
-            _shipsPlaced = true;
+            //_shipsPlaced = true;
             for (auto ship : _ships)
             {
                 if (!ship.onBoard()) _shipsPlaced = false;
             }
+            _shipsPlaced = true;
         }
     }
 
     _window.clear(sf::Color::Black);
-    _window.draw(_backgroundSprite);
+    _window.draw(_playerBoard);
+    _window.draw(_enemyBoard);
     for (auto ship : _ships)
     {
         ship.draw(_window);
@@ -128,24 +137,36 @@ sf::Vector2i GUIBoard::makeMove()
         {
             RegionMap regionMap;
             sf::Vector2i mousePos = sf::Mouse::getPosition(_window);
-            sf::Vector2f gridPos = regionMap.currentSquare(sf::Vector2f(mousePos));
-            return sf::Vector2i(gridPos);
+            if (regionMap.onEnemyBoard(sf::Vector2f(mousePos)))
+            {
+                sf::Vector2f gridPos = regionMap.currentSquare(sf::Vector2f(mousePos));
+                return sf::Vector2i(gridPos);
+            }
         }
     }
     return sf::Vector2i();
 }
 
-bool GUIBoard::isHit(sf::Vector2i coords)
+int GUIBoard::isHit(sf::Vector2i coords)
 {
-    for (auto ship : _ships)
+    int result = 0;
+    coords.x -= 800;
+    for (auto iter = std::begin(_ships); iter != std::end(_ships); iter++)
     {
-        if (sf::Vector2f(coords) == ship.getPosition())
-            return true;
+        if ((*iter).contains(sf::Vector2f(coords)))
+        {
+            if ((*iter).isSunk())
+            {
+                _ships.erase(iter);
+                result++;
+            }
+            result++;
+        }
     }
-    return false;
+    return result;
 }
 
-bool GUIBoard::moveMade(sf::Vector2i coords, bool hit)
+bool GUIBoard::moveMade(sf::Vector2i coords, int hit)
 {
     sf::Vector2i empty;
     if (coords == empty) return false;

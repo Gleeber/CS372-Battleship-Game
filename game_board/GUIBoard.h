@@ -18,9 +18,9 @@ public:
 
     sf::Vector2i makeMove();
 
-    bool isHit(sf::Vector2i);
+    int isHit(sf::Vector2i);
 
-    bool moveMade(sf::Vector2i,bool);
+    bool moveMade(sf::Vector2i,int);
 
     bool isOpen();
 
@@ -28,7 +28,8 @@ public:
 private:
     sf::RenderWindow _window;
     sf::Texture _backgroundTexture;
-    sf::Sprite  _backgroundSprite;
+    sf::Sprite  _playerBoard;
+    sf::Sprite _enemyBoard;
     std::vector<Ship> _ships;
     std::vector<Marker> _markers;
     bool _shipsPlaced;

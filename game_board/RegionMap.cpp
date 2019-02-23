@@ -22,12 +22,17 @@ RegionMap::RegionMap()
 {
     _populateGridWithCoordinates();
 
-    _startPositions = {sf::Vector2f(630.f, 30.f), sf::Vector2f(714.f, 30.f), sf::Vector2f(630.f,168.f), sf::Vector2f(630.f,360.f), sf::Vector2f(714.f,306.f)};
+    _shipStartPositions = {sf::Vector2f(630.f, 30.f), sf::Vector2f(714.f, 30.f), sf::Vector2f(630.f,168.f), sf::Vector2f(630.f,360.f), sf::Vector2f(714.f,306.f)};
 }
 
 bool RegionMap::onBoard(sf::Vector2f shipPosition, float shipLength)
 {
     return shipPosition.x < 600 && (shipPosition.y + shipLength) < 566;
+}
+
+bool RegionMap::onEnemyBoard(sf::Vector2f position)
+{
+    return position.x > 800+62 && position.y < 600-62;
 }
 
 float RegionMap::_distance(sf::Vector2f shipSquare, sf::Vector2f gridSquare)
@@ -52,15 +57,16 @@ sf::Vector2f RegionMap::closestSquare(sf::Vector2f shipPosition)
 
 sf::Vector2f RegionMap::currentSquare(sf::Vector2f position)
 {
-    float xPos = position.x - fmod((position.x-62.f),54.f);
+    float xPos = position.x - fmod((position.x-2*62.f-200.f),54.f);
     float yPos = position.y - fmod(position.y,54.f);
     return sf::Vector2f(xPos,yPos);
 }
 
 sf::Vector2f RegionMap::assignStartPosition(int assignedStartPosition)
 {
-    return _startPositions[assignedStartPosition];
+    return _shipStartPositions[assignedStartPosition];
 }
+
 
 
 

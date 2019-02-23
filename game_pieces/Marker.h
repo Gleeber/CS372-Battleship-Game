@@ -11,7 +11,7 @@
 class Marker
 {
 public:
-    Marker(sf::Vector2i,bool);
+    Marker(sf::Vector2i,int);
 
     void draw(sf::RenderWindow &);
 

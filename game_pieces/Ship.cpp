@@ -10,7 +10,7 @@ void Ship::_setShipPosition(sf::Vector2f pos)
     _shipSprite.setPosition(pos);
 }
 
-Ship::Ship(int xDim, int yDim, int assignedStartPosition) : _isHeld{false}, _regionMap{},
+Ship::Ship(int xDim, int yDim, int assignedStartPosition) : _isHeld{false}, _regionMap{}, _hitsLeft(yDim),
             _startPosition{_regionMap.assignStartPosition(assignedStartPosition)}
 {
     _shipSprite.setSize(sf::Vector2f((xDim*54), (yDim*54)));
@@ -22,9 +22,10 @@ void Ship::draw(sf::RenderWindow &window)
     window.draw(_shipSprite);
 }
 
-sf::Vector2f Ship::getPosition()
+bool Ship::isSunk()
 {
-    return _shipSprite.getPosition();
+    _hitsLeft--;
+    return _hitsLeft == 0;
 }
 
 void Ship::moveShip(sf::Vector2i pos)
@@ -35,6 +36,11 @@ void Ship::moveShip(sf::Vector2i pos)
 bool Ship::mouseOver(sf::RenderWindow & window)
 {
     return _shipSprite.getGlobalBounds().contains((sf::Vector2f)sf::Mouse::getPosition(window));
+}
+
+bool Ship::contains(sf::Vector2f position)
+{
+    return _shipSprite.getGlobalBounds().contains(position);
 }
 
 bool Ship::isHeld()

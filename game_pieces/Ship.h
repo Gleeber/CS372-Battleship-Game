@@ -21,9 +21,11 @@ public:
 
     void draw(sf::RenderWindow & window);
 
-    sf::Vector2f getPosition();
+    bool isSunk();
 
     bool mouseOver(sf::RenderWindow &);
+
+    bool contains(sf::Vector2f);
 
     bool isHeld();
 
@@ -35,6 +37,7 @@ private:
     sf::RectangleShape _shipSprite;
     bool _isHeld;
     RegionMap _regionMap;
+    int _hitsLeft;
     sf::Vector2f _startPosition;
 };
 
