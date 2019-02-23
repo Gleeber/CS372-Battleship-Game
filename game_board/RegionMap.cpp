@@ -13,12 +13,13 @@ void RegionMap::_populateGridWithCoordinates()
     {
         for (auto column = 0; column < 10; ++column)
         {
-            _grid.emplace_back(62.f + column*54.f, row*54.f);
+            _grid.emplace_back(_sideBarWidth + column*_gridSquareWidth, row*_gridSquareWidth);
         }
     }
 }
 
-RegionMap::RegionMap()
+RegionMap::RegionMap() : _windowWidth{1400}, _windowHeight{600}, _gridLeftBound{62}, _gridRightBound{600}, _enemyBoardLeftBound{800},
+                        _gridSquareWidth{54}, _sideBarWidth{62}, _shipDockWidth{200}
 {
     _populateGridWithCoordinates();
 
@@ -27,12 +28,12 @@ RegionMap::RegionMap()
 
 bool RegionMap::onBoard(sf::Vector2f shipPosition, float shipLength) const
 {
-    return shipPosition.x < 600 && (shipPosition.y + shipLength) < 566;
+    return shipPosition.x < _gridRightBound && (shipPosition.y + shipLength) < 566;
 }
 
 bool RegionMap::onEnemyBoard(sf::Vector2f position)
 {
-    return position.x > 800+62 && position.y < 600-62;
+    return position.x > _enemyBoardLeftBound+_sideBarWidth && position.y < _windowHeight-_sideBarWidth;
 }
 
 float RegionMap::_distance(sf::Vector2f shipSquare, sf::Vector2f gridSquare) const
@@ -57,8 +58,9 @@ sf::Vector2f RegionMap::closestSquare(sf::Vector2f shipPosition) const
 
 sf::Vector2f RegionMap::currentSquare(sf::Vector2f position)
 {
-    float xPos = position.x - fmod((position.x-2*62.f-200.f),54.f);
-    float yPos = position.y - fmod(position.y,54.f);
+    auto xPos = static_cast<float>(position.x - fmod((position.x - 2 * _sideBarWidth - _shipDockWidth),
+            _gridSquareWidth));
+    auto yPos = static_cast<float>(position.y - fmod(position.y, _gridSquareWidth));
     return sf::Vector2f(xPos,yPos);
 }
 

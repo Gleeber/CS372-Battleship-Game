@@ -42,6 +42,8 @@ private:
     void _moveHeldShip(sf::Vector2i &);
 
     void _dropHeldShip();
+
+    void _lockShipsInPlace();
 };
 
 

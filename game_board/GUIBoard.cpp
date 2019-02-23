@@ -70,12 +70,7 @@ void GUIBoard::update()
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
         {
-            //_shipsPlaced = true;
-            for (const auto & ship : _ships)
-            {
-                if (!ship.onBoard()) _shipsPlaced = false;
-            }
-            _shipsPlaced = true;
+            _lockShipsInPlace();
         }
     }
 
@@ -91,6 +86,15 @@ void GUIBoard::update()
         marker.draw(_window);
     }
     _window.display();
+}
+
+void GUIBoard::_lockShipsInPlace()
+{//_shipsPlaced = true;
+    for (const auto & ship : _ships)
+            {
+                if (!ship.onBoard()) _shipsPlaced = false;
+            }
+    _shipsPlaced = true;
 }
 
 void GUIBoard::_dropHeldShip()
