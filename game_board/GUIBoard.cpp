@@ -33,9 +33,11 @@ bool GUIBoard::isOpen()
     return _window.isOpen();
 }
 
-sf::Vector2i startPosition(0,0);
+
 void GUIBoard::update()
 {
+    static sf::Vector2i startPosition(0,0);
+
     sf::Event event; // NOLINT(cppcoreguidelines-pro-type-member-init)
     while (_window.pollEvent(event))
     {
@@ -48,38 +50,17 @@ void GUIBoard::update()
         {
             if (!_shipsPlaced)
             {
-                for (auto &ship : _ships) {
-                    if (ship.mouseOver(_window) && !ship.isHeld() && !_pieceIsHeld)
-                    {
-                        _pieceIsHeld = true;
-                        ship.setHeld(true);
-                        startPosition = sf::Mouse::getPosition(_window);
-                        break;
-                    }
-                }
+                _pickUpShip(startPosition);
             }
         }
         else
         {
-            _pieceIsHeld = false;
-            for (auto & ship : _ships)
-            {
-                ship.setHeld(false);
-            }
+            _releaseShips();
         }
 
         if (event.type == sf::Event::MouseMoved)
         {
-            sf::Vector2i currentPosition = sf::Mouse::getPosition(_window);
-            for (auto & ship : _ships)
-            {
-                if (ship.isHeld())
-                {
-                    ship.moveShip(currentPosition - startPosition);
-                    break;
-                }
-            }
-            startPosition = currentPosition;
+            _moveHeldShip(startPosition);
         }
 
         if (event.type == sf::Event::MouseButtonReleased)
@@ -121,6 +102,43 @@ void GUIBoard::update()
         marker.draw(_window);
     }
     _window.display();
+}
+
+void GUIBoard::_moveHeldShip(sf::Vector2i & startPosition)
+{
+    sf::Vector2i currentPosition = sf::Mouse::getPosition(_window);
+    for (auto & ship : _ships)
+            {
+                if (ship.isHeld())
+                {
+                    ship.moveShip(currentPosition - startPosition);
+                    break;
+                }
+            }
+    startPosition = currentPosition;
+}
+
+void GUIBoard::_pickUpShip(sf::Vector2i & startPosition)
+{
+    for (auto &ship : _ships)
+    {
+        if (ship.mouseOver(_window) && !ship.isHeld() && !_pieceIsHeld)
+        {
+            _pieceIsHeld = true;
+            ship.setHeld(true);
+            startPosition = sf::Mouse::getPosition(_window);
+            break;
+        }
+    }
+}
+
+void GUIBoard::_releaseShips()
+{
+    _pieceIsHeld = false;
+    for (auto & ship : _ships)
+    {
+        ship.setHeld(false);
+    }
 }
 
 sf::Vector2i GUIBoard::makeMove()

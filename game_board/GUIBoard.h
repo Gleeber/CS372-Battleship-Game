@@ -30,10 +30,16 @@ private:
     sf::Texture _backgroundTexture;
     sf::Sprite  _playerBoard;
     sf::Sprite _enemyBoard;
+
     std::vector<Ship> _ships;
     std::vector<Marker> _markers;
+
     bool _shipsPlaced;
     bool _pieceIsHeld;
+
+    void _releaseShips();
+    void _pickUpShip(sf::Vector2i &);
+    void _moveHeldShip(sf::Vector2i &);
 };
 
 
