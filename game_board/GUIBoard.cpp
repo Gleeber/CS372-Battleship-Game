@@ -5,6 +5,7 @@
 #include "GUIBoard.h"
 #include "../game_pieces/Ship.h"
 #include "RegionMap.h"
+#include "Button.h"
 #include <vector>
 
 using std::vector;
@@ -26,6 +27,12 @@ GUIBoard::GUIBoard() : _pieceIsHeld{false}, _shipsPlaced{false}
     _ships.emplace_back(Ship(1, 3, 2));
     _ships.emplace_back(Ship(1, 4, 3));
     _ships.emplace_back(Ship(1, 5, 4));
+
+    _buttons.emplace_back(Button(100,50));
+    _buttons.back().setSkin("lock-ship-button.png");
+    _buttons.back().setPosition(700, 522);
+    _buttons.back().setAction([this](){_lockShipsInPlace();});
+
 }
 
 bool GUIBoard::isOpen() const
@@ -37,7 +44,6 @@ bool GUIBoard::isOpen() const
 void GUIBoard::update()
 {
     static sf::Vector2i startPosition(0,0);
-
     sf::Event event; // NOLINT(cppcoreguidelines-pro-type-member-init)
     while (_window.pollEvent(event))
     {
@@ -52,6 +58,15 @@ void GUIBoard::update()
             {
                 _pickUpShip(startPosition);
             }
+
+            for (auto & button : _buttons)
+            {
+                if(button.click(_window))
+                {
+                    button.doAction();
+                }
+            }
+
         }
         else
         {
@@ -67,11 +82,6 @@ void GUIBoard::update()
         {
             _dropHeldShip();
         }
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
-        {
-            _lockShipsInPlace();
-        }
     }
 
     _window.clear(sf::Color::Black);
@@ -85,6 +95,11 @@ void GUIBoard::update()
     {
         marker.draw(_window);
     }
+    for (auto & button : _buttons)
+    {
+        button.draw(_window);
+    }
+
     _window.display();
 }
 

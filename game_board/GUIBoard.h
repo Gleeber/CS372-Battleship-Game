@@ -6,8 +6,11 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <map>
+#include <string>
 #include "../game_pieces/Ship.h"
 #include "../game_pieces/Marker.h"
+#include "Button.h"
 
 class GUIBoard
 {
@@ -33,6 +36,7 @@ private:
 
     std::vector<Ship> _ships;
     std::vector<Marker> _markers;
+    std::vector<Button> _buttons;
 
     bool _shipsPlaced;
     bool _pieceIsHeld;

@@ -23,7 +23,7 @@ RegionMap::RegionMap() : _windowWidth{1400}, _windowHeight{600}, _gridLeftBound{
 {
     _populateGridWithCoordinates();
 
-    _shipStartPositions = {sf::Vector2f(630.f, 30.f), sf::Vector2f(714.f, 30.f), sf::Vector2f(630.f,168.f), sf::Vector2f(630.f,360.f), sf::Vector2f(714.f,306.f)};
+    _shipStartPositions = {sf::Vector2f(630.f, 30.f), sf::Vector2f(714.f, 30.f), sf::Vector2f(630.f,168.f), sf::Vector2f(630.f,360.f), sf::Vector2f(714.f,222.f)};
 }
 
 bool RegionMap::onBoard(sf::Vector2f shipPosition, float shipLength) const
