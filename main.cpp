@@ -11,6 +11,19 @@ int main()
     int turn = 0;
     while(board1.isOpen() && board2.isOpen())
     {
+        if (board1.hasLost())
+        {
+            board2.wins();
+            board1.loses();
+            turn = 0;
+        }
+        else if (board2.hasLost())
+        {
+            turn = 0;
+            board1.wins();
+            board2.loses();
+        }
+
         if (turn == 0)
         {
             board1.update();

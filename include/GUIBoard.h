@@ -25,6 +25,13 @@ public:
     bool isOpen() const;
 
     bool shipsPlaced() const;
+
+    bool hasLost() const;
+
+    void wins();
+
+    void loses();
+
 private:
     sf::RenderWindow _window;
     sf::Texture _backgroundTexture;
@@ -36,14 +43,15 @@ private:
 
     bool _shipsPlaced;
     bool _pieceIsHeld;
+    bool _hasWon;
+    bool _hasLost;
 
     void _releaseShips();
     void _pickUpShip(sf::Vector2i &);
     void _moveHeldShip(sf::Vector2i &);
-
     void _dropHeldShip();
-
     void _lockShipsInPlace();
+    void _printMessage(std::string);
 };
 
 
