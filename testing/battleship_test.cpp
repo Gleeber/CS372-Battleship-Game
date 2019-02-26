@@ -3,8 +3,8 @@
 //
 
 #include "../catch.hpp"
-#include "../game_board/GUIBoard.h"
-#include "../game_board/Button.h"
+#include "../include/GUIBoard.h"
+#include "../include/Button.h"
 
 GUIBoard board;
 TEST_CASE("Game Initialization")
@@ -27,4 +27,5 @@ TEST_CASE("Button Class")
     button.setAction([&](){a+=5;});
     button.doAction();
     REQUIRE(a == 8);
+    REQUIRE(true);
 }
