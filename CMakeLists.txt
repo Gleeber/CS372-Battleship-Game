@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 include_directories("include")
 
-add_executable(CS372_Battleship_Game main.cpp game_board/GUIBoard.cpp game_pieces/Ship.cpp game_board/RegionMap.cpp game_pieces/Marker.cpp Button.cpp)
+add_executable(CS372_Battleship_Game main.cpp game_board/Button.cpp game_board/GUIBoard.cpp game_pieces/Ship.cpp game_board/RegionMap.cpp game_pieces/Marker.cpp)
 
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
 find_package(SFML REQUIRED system window graphics network audio)

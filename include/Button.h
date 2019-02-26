@@ -7,18 +7,23 @@
 
 
 #include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Texture.hpp>
 #include <functional>
 
 class Button
 {
 public:
     Button(int, int);
-    void setSkin();
+    void setSkin(std::string);
     void setPosition(int, int);
     void setAction(std::function<void(void)> &&);
     void doAction();
+    void draw(sf::RenderWindow&);
+    bool click(sf::RenderWindow &);
 private:
     sf::RectangleShape _sprite;
+    sf::Texture _texture;
 
     std::function<void(void)> _doAction;
 };

@@ -4,7 +4,7 @@
 
 #include "../catch.hpp"
 #include "../include/GUIBoard.h"
-#include "../include/Button.h"
+#include "Button.h"
 
 GUIBoard board;
 TEST_CASE("Game Initialization")

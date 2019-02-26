@@ -3,7 +3,7 @@
 //
 
 #include "GUIBoard.h"
-#include "../game_pieces/Ship.h"
+#include "../include/Ship.h"
 #include "RegionMap.h"
 #include "Button.h"
 #include <vector>
@@ -100,6 +100,15 @@ void GUIBoard::update()
         button.draw(_window);
     }
 
+    if (_hasLost)
+    {
+        _printMessage("YOU LOSE!");
+    }
+    else if (_hasWon)
+    {
+        _printMessage("YOU WIN!");
+    }
+
     _window.display();
 }
 
@@ -185,7 +194,7 @@ int GUIBoard::isHit(sf::Vector2i coords)
 {
     int result = 0;
     coords.x -= 800;
-    for (auto ship = std::begin(_ships); ship != std::end(_ships); ship++)
+    for (auto ship = std::begin(_ships); ship < std::end(_ships); ship++)
     {
         if ((*ship).contains(sf::Vector2f(coords)))
         {
@@ -214,4 +223,37 @@ bool GUIBoard::moveMade(sf::Vector2i coords, int hit)
 bool GUIBoard::shipsPlaced() const
 {
     return _shipsPlaced;
+}
+
+bool GUIBoard::hasLost() const
+{
+    return _ships.empty();
+}
+
+void GUIBoard::wins()
+{
+    _hasWon = true;
+}
+
+void GUIBoard::loses()
+{
+    _hasLost = true;
+}
+
+void GUIBoard::_printMessage(std::string message)
+{
+    sf::RectangleShape background(sf::Vector2f(200,100));
+    background.setPosition(600,250);
+    background.setFillColor(sf::Color(181,186,179,255));
+    background.setOutlineColor(sf::Color::Black);
+    background.setOutlineThickness(3.f);
+    sf::Font font;
+    if (!font.loadFromFile("machinestd.otf")){}
+    sf::Text displayedText;
+    displayedText.setFont(font);
+    displayedText.setFillColor(sf::Color::Black);
+    displayedText.setString(message);
+    displayedText.setPosition(615,275);
+    _window.draw(background);
+    _window.draw(displayedText);
 }

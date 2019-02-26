@@ -19,9 +19,9 @@ int main()
         }
         else if (board2.hasLost())
         {
-            turn = 0;
             board1.wins();
             board2.loses();
+            turn = 0;
         }
 
         if (turn == 0)
