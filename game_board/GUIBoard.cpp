@@ -2,9 +2,9 @@
 // Created by Mark on 2/14/2019.
 //
 
-#include "GUIBoard.h"
-#include "../game_pieces/Ship.h"
-#include "RegionMap.h"
+#include "../include/GUIBoard.h"
+#include "../include/Ship.h"
+#include "../include/RegionMap.h"
 #include <vector>
 
 using std::vector;
@@ -170,7 +170,7 @@ int GUIBoard::isHit(sf::Vector2i coords)
 {
     int result = 0;
     coords.x -= 800;
-    for (auto ship = std::begin(_ships); ship != std::end(_ships); ship++)
+    for (auto ship = std::begin(_ships); ship < std::end(_ships); ship++)
     {
         if ((*ship).contains(sf::Vector2f(coords)))
         {

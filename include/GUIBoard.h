@@ -6,8 +6,8 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
-#include "../game_pieces/Ship.h"
-#include "../game_pieces/Marker.h"
+#include "Ship.h"
+#include "Marker.h"
 
 class GUIBoard
 {

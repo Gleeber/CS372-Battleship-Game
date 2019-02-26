@@ -3,7 +3,7 @@
 //
 
 #include <SFML/Graphics.hpp>
-#include "Ship.h"
+#include "../include/Ship.h"
 
 void Ship::_setShipPosition(sf::Vector2f pos)
 {

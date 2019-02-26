@@ -1,9 +1,8 @@
 
-
 #include "catch.hpp"
 #include <iostream>
 #include <SFML/Window.hpp>
-#include "game_board/GUIBoard.h"
+#include "include/GUIBoard.h"
 
 int main()
 {
