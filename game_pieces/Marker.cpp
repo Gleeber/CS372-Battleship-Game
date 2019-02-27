@@ -3,6 +3,8 @@
 //
 
 #include <SFML/Graphics/CircleShape.hpp>
+#include <Marker.h>
+
 #include "../include/Marker.h"
 
 Marker::Marker(sf::Vector2i coords, int hit)
@@ -17,4 +19,9 @@ Marker::Marker(sf::Vector2i coords, int hit)
 void Marker::draw(sf::RenderWindow & window)
 {
     window.draw(_markerSprite);
+}
+
+sf::Vector2f Marker::getPosition()
+{
+    return _markerSprite.getPosition();
 }

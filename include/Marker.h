@@ -15,6 +15,8 @@ public:
 
     void draw(sf::RenderWindow &);
 
+    sf::Vector2f getPosition();
+
 private:
     sf::CircleShape _markerSprite;
 };

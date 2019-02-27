@@ -7,6 +7,7 @@
 #include "RegionMap.h"
 #include "Button.h"
 #include <vector>
+#include <algorithm>
 
 using std::vector;
 
@@ -183,6 +184,11 @@ sf::Vector2i GUIBoard::makeMove()
             if (regionMap.onEnemyBoard(sf::Vector2f(mousePos)))
             {
                 sf::Vector2f gridPos = regionMap.currentSquare(sf::Vector2f(mousePos));
+                if (std::count_if(begin(_markers), end(_markers),
+                                  [gridPos](Marker m){return m.getPosition() == gridPos;}) != 0)
+                {
+                    continue;
+                }
                 return sf::Vector2i(gridPos);
             }
         }
