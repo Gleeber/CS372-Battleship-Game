@@ -76,7 +76,14 @@ void Ship::setHeld(bool state)
 bool Ship::onBoard() const
 {
     sf::Vector2f shipPosition =  _shipSprite.getPosition();
-    return _regionMap.onBoard(shipPosition, _shipSprite.getSize().y);
+    sf::Vector2f shipDimensions = _shipSprite.getSize();
+    if (_shipSprite.getRotation() == 270.f)
+    {
+        shipDimensions.x = _shipSprite.getSize().y;
+        shipDimensions.y = _shipSprite.getSize().x;
+        shipPosition.y -= shipDimensions.y;
+    }
+    return _regionMap.onBoard(shipPosition, shipDimensions);
 }
 
 void Ship::snapToGrid()
@@ -85,10 +92,19 @@ void Ship::snapToGrid()
 
     if(onBoard())
     {
-        _setShipPosition(_regionMap.closestSquare(shipPosition));
+        auto closestSquare = _regionMap.closestSquare(shipPosition);
+        if (_shipSprite.getRotation() == 270.f && closestSquare.y == 0)
+        {
+            closestSquare.y += 54.f;
+        }
+        _setShipPosition(closestSquare);
     }
     else
     {
+        if (_shipSprite.getRotation() == 270.f)
+        {
+            rotateShip();
+        }
         _setShipPosition(_startPosition);
     }
 }
