@@ -9,7 +9,7 @@
 
 void RegionMap::_populateGridWithCoordinates()
 {
-    for (auto row = 0; row < 10; ++row)
+    for (auto row = 0; row < 11; ++row)
     {
         for (auto column = 0; column < 10; ++column)
         {
@@ -26,9 +26,13 @@ RegionMap::RegionMap() : _windowWidth{1400}, _windowHeight{600}, _gridLeftBound{
     _shipStartPositions = {sf::Vector2f(630.f, 30.f), sf::Vector2f(714.f, 30.f), sf::Vector2f(630.f,168.f), sf::Vector2f(630.f,360.f), sf::Vector2f(714.f,222.f)};
 }
 
-bool RegionMap::onBoard(sf::Vector2f shipPosition, float shipLength) const
+bool RegionMap::onBoard(sf::Vector2f shipPosition, sf::Vector2f shipDimensions) const
 {
-    return shipPosition.x < _gridRightBound && (shipPosition.y + shipLength) < 566;
+    auto shipWidth = shipDimensions.x;
+    auto shipHeight = shipDimensions.y;
+    return shipPosition.x < _gridRightBound &&
+          (shipPosition.x + shipWidth - shipHeight/2) < _gridRightBound &&
+          (shipPosition.y + shipHeight) < 566;
 }
 
 bool RegionMap::onEnemyBoard(sf::Vector2f position) const
