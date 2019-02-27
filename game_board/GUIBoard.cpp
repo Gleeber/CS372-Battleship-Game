@@ -74,12 +74,6 @@ void GUIBoard::update()
 
         }
 
-//        else
-//        {
-//            _releaseShips();
-//        }
-
-
         if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right))
         {
             for (auto &ship : _ships)
