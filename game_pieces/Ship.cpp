@@ -131,9 +131,10 @@ sf::IntRect Ship::_assignTextureRect(int shipID)
 
 void Ship::setSkin()
 {
-    sf::Rect textureRect = _assignTextureRect(_shipID-1);
+    sf::Rect textureRect = _assignTextureRect(_shipID);
     _shipSprite.setTexture(&_shipTextures);
     _shipSprite.setTextureRect(textureRect);
+    ++_shipID;
 }
 
 
