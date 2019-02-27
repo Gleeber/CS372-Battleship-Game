@@ -229,6 +229,7 @@ int GUIBoard::isHit(sf::Vector2i coords)
             result++;
         }
     }
+    _markers.emplace_back(Marker(coords,result));
     return result;
 }
 
