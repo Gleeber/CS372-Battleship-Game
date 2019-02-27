@@ -24,10 +24,15 @@ GUIBoard::GUIBoard() : _pieceIsHeld{false}, _allShipsOnBoard{false}, _hasLost{fa
     _enemyBoard.setPosition(800.f,0.f);
 
     _ships.emplace_back(Ship(1, 2));
+    _ships.back().setSkin();
     _ships.emplace_back(Ship(1, 3));
+    _ships.back().setSkin();
     _ships.emplace_back(Ship(1, 3));
+    _ships.back().setSkin();
     _ships.emplace_back(Ship(1, 4));
+    _ships.back().setSkin();
     _ships.emplace_back(Ship(1, 5));
+    _ships.back().setSkin();
 
     _buttons.emplace_back(Button(100,50));
     _buttons.back().setSkin("lock-ship-button.png");

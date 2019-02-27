@@ -34,9 +34,14 @@ public:
     void setHeld(bool);
 
     bool onBoard() const;
+
+    void setSkin();
 private:
     void _setShipPosition(sf::Vector2f);
     sf::RectangleShape _shipSprite;
+    static sf::Texture _shipTextures;
+    static std::vector<sf::IntRect> _partitionedShipTextures;
+    sf::IntRect _assignTextureRect(int);
     bool _isHeld;
     static RegionMap _regionMap;
     static int _shipID;

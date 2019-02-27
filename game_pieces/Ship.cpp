@@ -1,3 +1,5 @@
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "cert-err58-cpp"
 //
 // Created by Mark on 2/16/2019.
 //
@@ -7,8 +9,17 @@
 
 #include "../include/Ship.h"
 
-RegionMap Ship::_regionMap = RegionMap(); // NOLINT(cert-err58-cpp)
+RegionMap Ship::_regionMap = RegionMap();
 int Ship::_shipID = 0;
+sf::Texture Ship::_shipTextures = sf::Texture();
+std::vector<sf::IntRect> Ship::_partitionedShipTextures =
+        {
+                sf::IntRect(54*3,0,54,54*2),
+                sf::IntRect(54,0,54,54*3),
+                sf::IntRect(54*2,0,54,54*3),
+                sf::IntRect(0,0,54,54*4),
+                sf::IntRect(0,0,54,54*4), //TODO: change when I get the other ship texture
+        };
 
 void Ship::_setShipPosition(sf::Vector2f pos)
 {
@@ -19,6 +30,9 @@ Ship::Ship(int xDim, int yDim) : _isHeld{false}, _hitsLeft(yDim),
             _startPosition{_regionMap.assignStartPosition(_shipID)}
 {
     _shipSprite.setSize(sf::Vector2f((xDim*54), (yDim*54)));
+
+    if (!_shipTextures.loadFromFile("../resources/ships.png")){}
+
     _setShipPosition(_startPosition);
     ++_shipID;
 }
@@ -109,3 +123,18 @@ void Ship::snapToGrid()
     }
 }
 
+sf::IntRect Ship::_assignTextureRect(int shipID)
+{
+    auto index = shipID % 5;
+    return _partitionedShipTextures[index];
+}
+
+void Ship::setSkin()
+{
+    sf::Rect textureRect = _assignTextureRect(_shipID-1);
+    _shipSprite.setTexture(&_shipTextures);
+    _shipSprite.setTextureRect(textureRect);
+}
+
+
+#pragma clang diagnostic pop
