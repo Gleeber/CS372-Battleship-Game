@@ -25,8 +25,6 @@ public:
 
     bool isSunk();
 
-    bool mouseOver(sf::RenderWindow &) const;
-
     bool contains(sf::Vector2f) const;
 
     bool isHeld() const;
@@ -47,6 +45,8 @@ private:
     static int _shipID;
     int _hitsLeft;
     sf::Vector2f _startPosition;
+
+    void _moveToStartPosition();
 };
 
 

@@ -11,9 +11,9 @@
 
 using std::vector;
 
-GUIBoard::GUIBoard() : _pieceIsHeld{false}, _allShipsOnBoard{false}, _hasLost{false}, _hasWon{false}
+GUIBoard::GUIBoard(std::string windowTitle) : _pieceIsHeld{false}, _allShipsOnBoard{false}, _hasLost{false}, _hasWon{false}
 {
-    _window.create(sf::VideoMode(600+600+200, 600), "My window");
+    _window.create(sf::VideoMode(600+600+200, 600), windowTitle);
     if(!_backgroundTexture.loadFromFile("../resources/board.png")){}
 
     _playerBoard.setTexture(_backgroundTexture);
@@ -64,9 +64,9 @@ void GUIBoard::update()
                 _pickUpShip(startPosition);
             }
 
-            for (auto & button : _buttons)
+            for (auto &button : _buttons)
             {
-                if(button.click(_window))
+                if (button.click(_window))
                 {
                     button.doAction();
                 }
@@ -78,7 +78,7 @@ void GUIBoard::update()
         {
             for (auto &ship : _ships)
             {
-                if (ship.mouseOver(_window) && !ship.isHeld())
+                if (ship.contains(sf::Vector2f(sf::Mouse::getPosition(_window))) && !ship.isHeld())
                 {
                     if (ship.onBoard())
                     {
@@ -165,7 +165,7 @@ void GUIBoard::_pickUpShip(sf::Vector2i & startPosition)
 {
     for (auto &ship : _ships)
     {
-        if (ship.mouseOver(_window) && !ship.isHeld() && !_pieceIsHeld)
+        if (ship.contains(sf::Vector2f(sf::Mouse::getPosition(_window))) && !ship.isHeld() && !_pieceIsHeld)
         {
             _pieceIsHeld = true;
             ship.setHeld(true);

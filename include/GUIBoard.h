@@ -15,7 +15,7 @@
 class GUIBoard
 {
 public:
-    GUIBoard();
+    explicit GUIBoard(std::string);
 
     void update();
 

@@ -67,14 +67,10 @@ void Ship::moveShip(sf::Vector2i pos)
     _shipSprite.move((float)pos.x, (float)pos.y);
 }
 
-bool Ship::mouseOver(sf::RenderWindow & window) const
-{
-    return _shipSprite.getGlobalBounds().contains((sf::Vector2f)sf::Mouse::getPosition(window));
-}
-
 bool Ship::contains(sf::Vector2f position) const
 {
-    return _shipSprite.getGlobalBounds().contains(position);
+    sf::FloatRect globalBounds = _shipSprite.getGlobalBounds();
+    return globalBounds.contains(position);
 }
 
 bool Ship::isHeld() const
@@ -82,9 +78,9 @@ bool Ship::isHeld() const
     return _isHeld;
 }
 
-void Ship::setHeld(bool state)
+void Ship::setHeld(bool isHeld)
 {
-    _isHeld = state;
+    _isHeld = isHeld;
 }
 
 bool Ship::onBoard() const
@@ -115,12 +111,17 @@ void Ship::snapToGrid()
     }
     else
     {
-        if (_shipSprite.getRotation() == 270.f)
+        _moveToStartPosition();
+    }
+}
+
+void Ship::_moveToStartPosition()
+{
+    if (_shipSprite.getRotation() == 270.f)
         {
             rotateShip();
         }
-        _setShipPosition(_startPosition);
-    }
+    _setShipPosition(_startPosition);
 }
 
 sf::IntRect Ship::_assignTextureRect(int shipID)

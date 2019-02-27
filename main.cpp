@@ -6,8 +6,8 @@
 
 int main()
 {
-    GUIBoard board1;
-    GUIBoard board2;
+    GUIBoard board1("Player 1");
+    GUIBoard board2("Player 2");
     int turn = 0;
     while(board1.isOpen() && board2.isOpen())
     {
