@@ -18,7 +18,7 @@ std::vector<sf::IntRect> Ship::_partitionedShipTextures =
                 sf::IntRect(54,0,54,54*3),
                 sf::IntRect(54*2,0,54,54*3),
                 sf::IntRect(0,0,54,54*4),
-                sf::IntRect(0,0,54,54*4), //TODO: change when I get the other ship texture
+                sf::IntRect(54*4,0,54,54*5)
         };
 
 void Ship::_setShipPosition(sf::Vector2f pos)
