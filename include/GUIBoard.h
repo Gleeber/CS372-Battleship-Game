@@ -27,7 +27,7 @@ public:
 
     bool isOpen() const;
 
-    bool shipsPlaced() const;
+    bool allShipsOnBoard() const;
 
     bool hasLost() const;
 
@@ -44,7 +44,7 @@ private:
     std::vector<Marker> _markers;
     std::vector<Button> _buttons;
 
-    bool _shipsPlaced;
+    bool _allShipsOnBoard;
     bool _pieceIsHeld;
     bool _hasWon;
     bool _hasLost;

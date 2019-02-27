@@ -11,10 +11,10 @@
 
 using std::vector;
 
-GUIBoard::GUIBoard() : _pieceIsHeld{false}, _shipsPlaced{false}
+GUIBoard::GUIBoard() : _pieceIsHeld{false}, _allShipsOnBoard{false}, _hasLost{false}, _hasWon{false}
 {
     _window.create(sf::VideoMode(600+600+200, 600), "My window");
-    if(!_backgroundTexture.loadFromFile("../textures/board.png")){}
+    if(!_backgroundTexture.loadFromFile("../resources/board.png")){}
 
     _playerBoard.setTexture(_backgroundTexture);
     _playerBoard.setPosition(0.f,0.f);
@@ -23,11 +23,11 @@ GUIBoard::GUIBoard() : _pieceIsHeld{false}, _shipsPlaced{false}
     _enemyBoard.setTextureRect(sf::IntRect(0,0,600,600));
     _enemyBoard.setPosition(800.f,0.f);
 
-    _ships.emplace_back(Ship(1, 2, 0));
-    _ships.emplace_back(Ship(1, 3, 1));
-    _ships.emplace_back(Ship(1, 3, 2));
-    _ships.emplace_back(Ship(1, 4, 3));
-    _ships.emplace_back(Ship(1, 5, 4));
+    _ships.emplace_back(Ship(1, 2));
+    _ships.emplace_back(Ship(1, 3));
+    _ships.emplace_back(Ship(1, 3));
+    _ships.emplace_back(Ship(1, 4));
+    _ships.emplace_back(Ship(1, 5));
 
     _buttons.emplace_back(Button(100,50));
     _buttons.back().setSkin("lock-ship-button.png");
@@ -40,7 +40,6 @@ bool GUIBoard::isOpen() const
 {
     return _window.isOpen();
 }
-
 
 void GUIBoard::update()
 {
@@ -55,7 +54,7 @@ void GUIBoard::update()
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
         {
-            if (!_shipsPlaced)
+            if (!_allShipsOnBoard)
             {
                 _pickUpShip(startPosition);
             }
@@ -134,12 +133,11 @@ void GUIBoard::update()
 }
 
 void GUIBoard::_lockShipsInPlace()
-{//_shipsPlaced = true;
-    for (const auto & ship : _ships)
-            {
-                if (!ship.onBoard()) _shipsPlaced = false;
-            }
-    _shipsPlaced = true;
+{
+    if (std::all_of(begin(_ships), end(_ships), [](Ship s){return s.onBoard();}))
+    {
+        _allShipsOnBoard = true;
+    }
 }
 
 void GUIBoard::_dropHeldShip()
@@ -246,14 +244,14 @@ bool GUIBoard::moveMade(sf::Vector2i coords, int hit)
     }
 }
 
-bool GUIBoard::shipsPlaced() const
+bool GUIBoard::allShipsOnBoard() const
 {
-    return _shipsPlaced;
+    return _allShipsOnBoard;
 }
 
 bool GUIBoard::hasLost() const
 {
-    return _ships.empty();
+    return _ships.empty() && _allShipsOnBoard;
 }
 
 void GUIBoard::wins()
@@ -274,7 +272,7 @@ void GUIBoard::_printMessage(std::string message)
     background.setOutlineColor(sf::Color::Black);
     background.setOutlineThickness(3.f);
     sf::Font font;
-    if (!font.loadFromFile("machinestd.otf")){}
+    if (!font.loadFromFile("../resources/machinestd.otf")){}
     sf::Text displayedText;
     displayedText.setFont(font);
     displayedText.setFillColor(sf::Color::Black);

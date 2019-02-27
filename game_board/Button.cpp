@@ -41,6 +41,6 @@ bool Button::click(sf::RenderWindow & window)
 
 void Button::setSkin(std::string skin)
 {
-    if (!_texture.loadFromFile("../textures/" + skin)){}
+    if (!_texture.loadFromFile("../resources/" + skin)){}
     _sprite.setTexture(&_texture);
 }

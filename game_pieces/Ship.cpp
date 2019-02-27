@@ -7,16 +7,20 @@
 
 #include "../include/Ship.h"
 
+RegionMap Ship::_regionMap = RegionMap(); // NOLINT(cert-err58-cpp)
+int Ship::_shipID = 0;
+
 void Ship::_setShipPosition(sf::Vector2f pos)
 {
     _shipSprite.setPosition(pos);
 }
 
-Ship::Ship(int xDim, int yDim, int assignedStartPosition) : _isHeld{false}, _regionMap{}, _hitsLeft(yDim),
-            _startPosition{_regionMap.assignStartPosition(assignedStartPosition)}
+Ship::Ship(int xDim, int yDim) : _isHeld{false}, _hitsLeft(yDim),
+            _startPosition{_regionMap.assignStartPosition(_shipID)}
 {
     _shipSprite.setSize(sf::Vector2f((xDim*54), (yDim*54)));
     _setShipPosition(_startPosition);
+    ++_shipID;
 }
 
 void Ship::draw(sf::RenderWindow &window)

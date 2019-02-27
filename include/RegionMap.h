@@ -5,6 +5,7 @@
 #define CS372_BATTLESHIP_GAME_REGIONMAP_H
 
 #include <vector>
+#include <stack>
 #include <SFML/System/Vector2.hpp>
 
 class RegionMap
@@ -15,7 +16,7 @@ public:
     sf::Vector2f currentSquare(sf::Vector2f);
     bool onBoard(sf::Vector2f, float) const;
     bool onEnemyBoard(sf::Vector2f) const;
-    sf::Vector2f assignStartPosition(int) const;
+    sf::Vector2f assignStartPosition(int);
 private:
     void _populateGridWithCoordinates();
     float _distance(sf::Vector2f, sf::Vector2f) const;

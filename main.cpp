@@ -29,7 +29,7 @@ int main()
             board1.update();
             board2.update();
         }
-        if (board1.shipsPlaced() && board2.shipsPlaced() && turn == 0) turn = 1;
+        if (board1.allShipsOnBoard() && board2.allShipsOnBoard() && turn == 0) turn = 1;
 
         if (turn == 1)
         {
