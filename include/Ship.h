@@ -19,6 +19,8 @@ public:
 
     void snapToGrid();
 
+    void rotateShip();
+
     void draw(sf::RenderWindow & window);
 
     bool isSunk();

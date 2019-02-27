@@ -3,6 +3,8 @@
 //
 
 #include <SFML/Graphics.hpp>
+#include <Ship.h>
+
 #include "../include/Ship.h"
 
 void Ship::_setShipPosition(sf::Vector2f pos)
@@ -20,6 +22,20 @@ Ship::Ship(int xDim, int yDim, int assignedStartPosition) : _isHeld{false}, _reg
 void Ship::draw(sf::RenderWindow &window)
 {
     window.draw(_shipSprite);
+}
+
+void Ship::rotateShip()
+{
+    if (_shipSprite.getRotation() == 0.f)
+    {
+        _shipSprite.setRotation(270.f);
+        _shipSprite.move(0,54.f);
+    }
+    else
+    {
+        _shipSprite.setRotation(0.f);
+        _shipSprite.move(0,-54.f);
+    }
 }
 
 bool Ship::isSunk()

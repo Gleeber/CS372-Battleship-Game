@@ -69,9 +69,25 @@ void GUIBoard::update()
             }
 
         }
-        else
+
+//        else
+//        {
+//            _releaseShips();
+//        }
+
+
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right))
         {
-            _releaseShips();
+            for (auto &ship : _ships)
+            {
+                if (ship.mouseOver(_window) && !ship.isHeld())
+                {
+                    if (ship.onBoard())
+                    {
+                        ship.rotateShip();
+                    }
+                }
+            }
         }
 
         if (event.type == sf::Event::MouseMoved)
@@ -81,7 +97,11 @@ void GUIBoard::update()
 
         if (event.type == sf::Event::MouseButtonReleased)
         {
-            _dropHeldShip();
+            if (!sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+            {
+                _releaseShips();
+                _dropHeldShip();
+            }
         }
     }
 
